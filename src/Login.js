@@ -22,7 +22,7 @@ export default function Login() {
 
         navigate('/profile')
       } catch (error) {
-        // Handle login error
+        // Handle login errorr
         console.log('Login error:', error);
       }
   }
