@@ -20,6 +20,7 @@ export default function Profile() {
     setList(movieInfo)
   }
 
+  
   function addNew(){
     if (text == ''){
       return
@@ -29,6 +30,7 @@ export default function Profile() {
       text: text,
       timestamp: new Date()
     })
+
     setText('')
     getTexts()
   }
@@ -40,13 +42,20 @@ export default function Profile() {
   }
 
   useEffect(() => {
-      getTexts()
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  },[list])
 
-      if (!user){
-            navigate('/login'); // Navigates to the '/about' route
-      }
+  useEffect(() => {
+    getTexts()
+    if (!user){
+      navigate('/login'); // Navigates to the '/about' route
+    }
   },[])
-    
+
+
   return (
     <div>
       <h1>welcome {user[0]}</h1>
@@ -56,7 +65,7 @@ export default function Profile() {
           <div key={i.id}>
             <h4>{i.user}</h4>
             <p>{i.text}</p>
-            {user[0] == i.user ? <button onClick={() => deleteText(i.id)}>delete</button> : <div></div>}
+            {user[0] === i.user ? <button onClick={() => deleteText(i.id)}>delete</button> : <div></div>}
           </div>
         )
         })}
