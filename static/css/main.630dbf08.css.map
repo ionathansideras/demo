@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.630dbf08.css","mappings":"AAAA,KACA,QACA,CAEA,KACI,wBACJ","sources":["styles/chat.css"],"sourcesContent":["body {\r\nmargin: 0;\r\n}\r\n\r\n.all {\r\n    background-color: aquamarine;\r\n}"],"names":[],"sourceRoot":""}
