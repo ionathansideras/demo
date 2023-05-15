@@ -9,18 +9,29 @@ export default function Profile() {
   const [list, setList] = useState([])
   const [text, setText] = useState('')
   
-  const moviesCollection = collection(db, 'movies')
+  let flag = true
+  
+  const moviesCollection = collection(db, 'chat')
 
   const user = JSON.parse(localStorage.getItem('profile'))
   const navigate = useNavigate();
 
-  
+  let username = user[0].split('').map((i) => {
+    if (i == '@'){
+      flag = false
+      return
+    }
+    else if (flag == true) {
+      return i
+    }
+  }).join('')
+
   function addNew(){
     if (text == ''){
       return
     }
     addDoc(moviesCollection ,{
-      user: user[0],
+      user: username,
       text: text,
       timestamp: new Date()
     })
@@ -46,7 +57,7 @@ export default function Profile() {
 
   return (
     <div className='all'>
-      <h1>welcome {user[0]}</h1>
+      <h1>welcome {username}</h1>
       <button><Link to="/login" onClick={() => localStorage.setItem('profile', false)}>log Out</Link></button>
       {list.map((i) => {
         return (
