@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { auth } from './config/firebase-info'
 import { createUserWithEmailAndPassword, signOut } from 'firebase/auth'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
 
   const [email, setEmail] = useState('')
   const [pas1, setPas1] = useState('')
   const [pas2, setPas2] = useState('')
+  const navigate = useNavigate();
 
   async function handlesubmit(e){
     e.preventDefault()
@@ -25,6 +26,13 @@ export default function Signup() {
       console.log('DIF PASSWORDS')
     } 
   }
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('profile')) != false){
+      navigate('/profile')
+      console.log('ok')
+    }
+  },[])
 
   return (    
     <div>
