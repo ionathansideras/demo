@@ -8,8 +8,7 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [pas1, setPas1] = useState('')
   const [pas2, setPas2] = useState('')
-  const navigate = useNavigate();
-
+  
   async function handlesubmit(e){
     e.preventDefault()
     if (pas1 === pas2){
@@ -27,12 +26,6 @@ export default function Signup() {
     } 
   }
 
-  useEffect(() => {
-    if (JSON.parse(localStorage.getItem('profile')) != false){
-      navigate('/profile')
-      console.log('ok')
-    }
-  },[])
 
   return (    
     <div>
