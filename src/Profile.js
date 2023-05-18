@@ -69,14 +69,16 @@ export default function Profile() {
       <button onClick={() => navigate('/', { replace: true })}>log Out</button>
       {list.map((i) => {
         return (
-          <div key={i.id}>
-            <h4>{i.user}</h4>
-            <p>{i.text}</p>
-          </div>
+          <article className={i.user == username ? 'right' : 'left'}  key={i.id}>
+            <div className={i.user == username ? 'myMessege' : 'messege'}>
+              <h4 className='name'>{i.user}</h4>
+              <p className='text'>{i.text}</p>
+            </div>
+          </article>
         )
         })}
       <form onSubmit={addNew}>
-        <input value={text} onChange={(e) => setText(e.target.value)}/>
+        <input placeholder='Type...' value={text} onChange={(e) => setText(e.target.value)}/>
         <button type='submit'>send</button>
       </form>
     </div>
