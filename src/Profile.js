@@ -65,7 +65,12 @@ export default function Profile() {
 
   return (
     <div className='all'>
-      {/* <h1>welcome {username} </h1> */}
+      <header>
+          <button onClick={() => navigate('/', { replace: true })}>log Out</button>
+          
+            <h3>Welcome {username} </h3>
+          
+      </header>
       {list.map((i) => {
         return (
           <article className={i.user == username ? 'right' : 'left'}  key={i.id}>
@@ -79,7 +84,6 @@ export default function Profile() {
       <form onSubmit={addNew}>
         <input placeholder='Type...' value={text} onChange={(e) => setText(e.target.value)}/>
         {/* <button type='submit'>send</button> */}
-        {/* <button onClick={() => navigate('/', { replace: true })}>log Out</button> */}
       </form>
     </div>
   )
