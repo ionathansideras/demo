@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from './config/firebase-info';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom'
+import { auth, googleProvider } from './config/firebase-info';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Login() {
 
@@ -22,10 +22,21 @@ export default function Login() {
       }
   }
 
+  async function signInWithGoogle() {
+    try {
+        await signInWithPopup(auth, googleProvider);
+        navigate('/profile')
+        
+      } catch (error) {
+        // Handle login error
+        console.log('Signin error:', error);
+      }
+  }
+
   return (
-    <div>
+    <div  className='all-auth'>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
+      <form  className='auth-form' onSubmit={handleSubmit}>
         <input
           placeholder="Email"
           type="email"
@@ -38,6 +49,14 @@ export default function Login() {
         />
         <button type="submit">Login</button>
       </form>
+      <div className='login-google-div'>
+            <button className='login-google-button' onClick={signInWithGoogle}>
+              <img className='login-google' width="48" height="48" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo"/>
+            </button>
+      </div>
+      <div>You dont have an accound? 
+        <Link to="/">log in</Link>
+      </div>
     </div>
   );
 }

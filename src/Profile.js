@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { db } from './config/firebase-info'
+import { useNavigate } from 'react-router-dom'
+import { db, auth } from './config/firebase-info'
+import { signOut, onAuthStateChanged } from 'firebase/auth'
 import { collection, addDoc, query, orderBy, onSnapshot  } from 'firebase/firestore'
 import './styles/chat.css'
 
@@ -15,15 +16,15 @@ export default function Profile() {
 
   const navigate = useNavigate();
   
-  const location = useLocation();
-  let { user } = location.state || {};
+  // const location = useLocation();
+  // let { user } = location.state || {};
 
-  let username = 'un'
-  if (user) {
-    username = user.split('').map((i) => {
+  let username = auth?.currentUser?.email
+  if (username) {
+    username = username.split('').map((i) => {
       if (i == '@'){
         flag = false
-        return
+        return 
       }
       else if (flag == true) {
         return i
@@ -58,18 +59,18 @@ export default function Profile() {
   },[])
 
   useEffect(() => {
-    if (!user){
-      navigate('/login'); // Navigates to the '/login' route
-    }
+    onAuthStateChanged(auth, (user) => {
+      if(user?.email == undefined){
+          navigate('/login')
+      }
+    })
   },[])
 
   return (
     <div className='all'>
       <header>
-          <button onClick={() => navigate('/', { replace: true })}>log Out</button>
-          
-            <h3>Welcome {username} </h3>
-          
+          <button onClick={() => signOut(auth)}>log Out</button>
+          <h3>Welcome {username} </h3> 
       </header>
       {list.map((i) => {
         return (
@@ -81,9 +82,8 @@ export default function Profile() {
           </article>
         )
         })}
-      <form onSubmit={addNew}>
+      <form className='type-form' onSubmit={addNew}>
         <input placeholder='Type...' value={text} onChange={(e) => setText(e.target.value)}/>
-        {/* <button type='submit'>send</button> */}
       </form>
     </div>
   )
