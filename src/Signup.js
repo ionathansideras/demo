@@ -32,7 +32,10 @@ export default function Signup() {
           setError('Invalid email')
         }   else if (err.code == 'auth/missing-password') {
           setError('Missing password')
+        } else if (err.code == 'auth/missing-email') {
+          setError('Missing email')
         }
+
 
         console.error(err)
       }
