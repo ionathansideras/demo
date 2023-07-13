@@ -30,6 +30,8 @@ export default function Signup() {
             setError('Account already exist')
         } else if (err.code == 'auth/invalid-email') {
           setError('Invalid email')
+        }   else if (err.code == 'auth/missing-password') {
+          setError('Missing password')
         }
 
         console.error(err)

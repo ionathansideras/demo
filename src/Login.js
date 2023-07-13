@@ -25,6 +25,8 @@ export default function Login() {
           setError('Wrong password')
         } else if (err.code == 'auth/invalid-email') {
           setError('Invalid email')
+        }  else if (err.code == 'auth/missing-password') {
+          setError('Missing password')
         }
 
         console.error(err)
