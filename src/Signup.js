@@ -9,6 +9,7 @@ export default function Signup() {
   const [email, setEmail] = useState('')
   const [pas1, setPas1] = useState('')
   const [pas2, setPas2] = useState('')
+  const [error, setError] = useState('')
 
   const navigate = useNavigate()
   
@@ -22,10 +23,19 @@ export default function Signup() {
         setPas1('')
         setPas2('')
       } catch (err) {
+        
+        if (err.code ==  'auth/weak-password') {
+            setError('Password must have 6 or more characters')
+        } else if (err.code == 'auth/email-already-in-use') {
+            setError('Account already exist')
+        } else if (err.code == 'auth/invalid-email') {
+          setError('Invalid email')
+        }
+
         console.error(err)
       }
     } else {
-      console.log('DIF PASSWORDS')
+      setError('Password is not matching')
     } 
   }
  
@@ -44,6 +54,8 @@ export default function Signup() {
   return (    
     <div className='all-auth'>
       <h1>Sign Up</h1>
+      <div>{error}</div>
+
       <form className='auth-form' onSubmit={handlesubmit}>
         <input placeholder='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)}/>
         <input type='password' placeholder='password' value={pas1} onChange={(e) => setPas1(e.target.value)}/>
@@ -56,8 +68,8 @@ export default function Signup() {
               <img className='login-google' width="48" height="48" src="https://img.icons8.com/color/48/google-logo.png" alt="google-logo"/>
             </button>
       </div>
-      <div>You already have an accound? 
-        <Link to="/login">log in</Link>
+      <div>You already have an account? 
+        <Link to="/login">logIn</Link>
       </div>
     </div>
   )
