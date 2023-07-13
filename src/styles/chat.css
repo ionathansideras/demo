@@ -137,6 +137,7 @@ a {
     margin-left: 10px;
     transition: all 0.3s;
 }
+
 a:hover {
     background-color: hsl(0, 0%, 50%);
 }
@@ -166,4 +167,16 @@ a:hover {
 .login-google {
     width: 30px;
     height: 30px;
+}
+
+.error {
+    color: rgb(255, 255, 255);
+    background-color: rgb(255, 143, 143);
+    border: red 1px solid;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    margin-bottom: 10px;
 }

@@ -50,13 +50,11 @@ export default function Signup() {
       }
   }
 
-
   return (    
     <div className='all-auth'>
       <h1>Sign Up</h1>
-      <div>{error}</div>
-
       <form className='auth-form' onSubmit={handlesubmit}>
+        <div className='error' style={{ display: error === '' ? 'none' : 'flex' }}>{error}</div>
         <input placeholder='Email' type='email' value={email} onChange={(e) => setEmail(e.target.value)}/>
         <input type='password' placeholder='password' value={pas1} onChange={(e) => setPas1(e.target.value)}/>
         <input type='password' placeholder='config password' value={pas2} onChange={(e) => setPas2(e.target.value)}/>
