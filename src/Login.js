@@ -23,6 +23,8 @@ export default function Login() {
             setError('Account not found')
         } else if (err.code == 'auth/wrong-password') {
           setError('Wrong password')
+        } else if (err.code == 'auth/invalid-email') {
+          setError('Invalid email')
         }
 
         console.error(err)
