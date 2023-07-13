@@ -7,6 +7,7 @@ export default function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -16,9 +17,15 @@ export default function Login() {
         const userCredential = await signInWithEmailAndPassword(auth,email,password);
         const user = userCredential.user;
         navigate('/profile', { state: { user: user.email } })
-      } catch (error) {
+      } catch (err) {
         // Handle login error
-        console.log('Login error:', error);
+        if (err.code == 'auth/user-not-found') {
+            setError('Account not found')
+        } else if (err.code == 'auth/wrong-password') {
+          setError('Wrong password')
+        }
+
+        console.error(err)
       }
   }
 
@@ -37,6 +44,8 @@ export default function Login() {
     <div  className='all-auth'>
       <h1>Login</h1>
       <form  className='auth-form' onSubmit={handleSubmit}>
+      <div className='error' style={{ display: error === '' ? 'none' : 'flex' }}>{error}</div>
+
         <input
           placeholder="Email"
           type="email"
