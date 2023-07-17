@@ -35,8 +35,6 @@ export default function Signup() {
         } else if (err.code == 'auth/missing-email') {
           setError('Missing email')
         }
-
-
         console.error(err)
       }
     } else {
