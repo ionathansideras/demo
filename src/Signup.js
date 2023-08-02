@@ -5,48 +5,56 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 
 export default function Signup() {
-  const [email, setEmail] = useState("");
-  const [pas1, setPas1] = useState("");
-  const [pas2, setPas2] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState(""); // State to store the email input
+  const [pas1, setPas1] = useState(""); // State to store the first password input
+  const [pas2, setPas2] = useState(""); // State to store the second password input
+  const [error, setError] = useState(""); // State to store error messages
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // React Router's navigation hook
 
+  // Function to handle the form submission
   async function handlesubmit(e) {
     e.preventDefault();
     if (pas1 === pas2) {
       try {
+        // Create a new user with the provided email and password
         await createUserWithEmailAndPassword(auth, email, pas1);
+
+        // Sign out the user after successful signup to force them to log in again
         await signOut(auth);
+
+        // Clear the input fields and error messages after successful signup
         setEmail("");
         setPas1("");
         setPas2("");
       } catch (err) {
-        if (err.code == "auth/weak-password") {
+        // Handle signup errors
+        if (err.code === "auth/weak-password") {
           setError("Password must have 6 or more characters");
-        } else if (err.code == "auth/email-already-in-use") {
-          setError("Account already exist");
-        } else if (err.code == "auth/invalid-email") {
+        } else if (err.code === "auth/email-already-in-use") {
+          setError("Account already exists with this email");
+        } else if (err.code === "auth/invalid-email") {
           setError("Invalid email");
-        } else if (err.code == "auth/missing-password") {
+        } else if (err.code === "auth/missing-password") {
           setError("Missing password");
-        } else if (err.code == "auth/missing-email") {
+        } else if (err.code === "auth/missing-email") {
           setError("Missing email");
         }
         console.error(err);
       }
     } else {
-      setError("Password is not matching");
+      setError("Passwords do not match");
     }
   }
 
+  // Function to handle Google sign-in
   async function signInWithGoogle() {
     try {
       await signInWithPopup(auth, googleProvider);
       navigate("/profile");
     } catch (error) {
       // Handle login error
-      console.log("Signin error:", error);
+      console.log("Sign-in error:", error);
     }
   }
 
@@ -58,6 +66,7 @@ export default function Signup() {
           className="error"
           style={{ display: error === "" ? "none" : "flex" }}
         >
+          {/* Display error messages */}
           {error}
         </div>
         <input
@@ -68,13 +77,13 @@ export default function Signup() {
         />
         <input
           type="password"
-          placeholder="password"
+          placeholder="Password"
           value={pas1}
           onChange={(e) => setPas1(e.target.value)}
         />
         <input
           type="password"
-          placeholder="config password"
+          placeholder="Confirm Password"
           value={pas2}
           onChange={(e) => setPas2(e.target.value)}
         />
@@ -82,6 +91,7 @@ export default function Signup() {
       </form>
 
       <div className="login-google-div">
+        {/* Button for Google sign-in */}
         <button className="login-google-button" onClick={signInWithGoogle}>
           <img
             className="login-google"
@@ -93,8 +103,8 @@ export default function Signup() {
         </button>
       </div>
       <div>
-        You already have an account?
-        <Link to="/login">logIn</Link>
+        {/* Link to the login page */}
+        You already have an account? <Link to="/login">Log In</Link>
       </div>
     </div>
   );

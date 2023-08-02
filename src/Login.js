@@ -4,45 +4,50 @@ import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
+  // State to store user input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  // React Router's navigation hook
   const navigate = useNavigate();
 
+  // Handle regular email and password login
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password,
+        password
       );
       const user = userCredential.user;
       navigate("/profile", { state: { user: user.email } });
     } catch (err) {
       // Handle login error
-      if (err.code == "auth/user-not-found") {
-        setError("Account not found");
-      } else if (err.code == "auth/wrong-password") {
-        setError("Wrong password");
-      } else if (err.code == "auth/invalid-email") {
-        setError("Invalid email");
-      } else if (err.code == "auth/missing-password") {
-        setError("Missing password");
+      // Map Firebase error codes to user-friendly messages
+      if (err.code === "auth/user-not-found") {
+        setError("Account not found. Please check your email and password.");
+      } else if (err.code === "auth/wrong-password") {
+        setError("Wrong password. Please try again.");
+      } else if (err.code === "auth/invalid-email") {
+        setError("Invalid email. Please enter a valid email address.");
+      } else if (err.code === "auth/missing-password") {
+        setError("Missing password. Please enter your password.");
       }
 
       console.error(err);
     }
   }
 
+  // Handle Google sign-in
   async function signInWithGoogle() {
     try {
       await signInWithPopup(auth, googleProvider);
       navigate("/profile");
     } catch (error) {
       // Handle login error
-      console.log("Signin error:", error);
+      console.log("Sign-in error:", error);
     }
   }
 
@@ -57,6 +62,7 @@ export default function Login() {
           {error}
         </div>
 
+        {/* Input fields for email and password */}
         <input
           placeholder="Email"
           type="email"
@@ -67,9 +73,11 @@ export default function Login() {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        {/* Submit button for regular login */}
         <button type="submit">Login</button>
       </form>
       <div className="login-google-div">
+        {/* Button for Google sign-in */}
         <button className="login-google-button" onClick={signInWithGoogle}>
           <img
             className="login-google"
@@ -81,8 +89,8 @@ export default function Login() {
         </button>
       </div>
       <div>
-        You dont have an account?
-        <Link to="/">SignUp</Link>
+        {/* Link to sign-up page */}
+        You don't have an account? <Link to="/">Sign Up</Link>
       </div>
     </div>
   );
