@@ -1,6 +1,6 @@
-# My Awesome Chat Website
+# Chat Website
 
-Welcome to the My Awesome Chat Website project! This project showcases the use of JavaScript, React, CSS, and Firebase (Firestore) to create a real-time chat application. Users can create accounts using both email and password authentication as well as Google OAuth for a seamless sign-up experience. The application features real-time chat functionality using Firestore for data synchronization and includes form validation for login and signup processes.
+Welcome to my Chat Website project! This project showcases the use of JavaScript, React, CSS, and Firebase (Firestore) to create a real-time chat application. Users can create accounts using both email and password authentication as well as Google OAuth for a seamless sign-up experience. The application features real-time chat functionality using Firestore for data synchronization and includes form validation for login and signup processes.
 
 ## Technologies Used
 
@@ -33,11 +33,11 @@ Feel free to explore the source code to understand how user authentication, real
 
 ## Usage
 
-The My Awesome Chat Website project provides a platform for users to communicate in real-time through chat messages. Users can create accounts, log in, and start sending messages instantly. The Firestore integration ensures that chat messages are synchronized in real-time across devices. By examining the codebase, you can learn how to manage user authentication, integrate Firestore for real-time updates, and implement form validation techniques.
+The Chat Website project provides a platform for users to communicate in real-time through chat messages. Users can create accounts, log in, and start sending messages instantly. The Firestore integration ensures that chat messages are synchronized in real-time across devices. By examining the codebase, you can learn how to manage user authentication, integrate Firestore for real-time updates, and implement form validation techniques.
 
 ---
 
 Thank you for checking out the My Awesome Chat Website project! If you have any questions or feedback, feel free to reach out.
 
-_Your Name_
-_Your Contact Information_
+_Ionathan Sideras_
+_iona8ansideras@gmail.com_
