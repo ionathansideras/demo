@@ -7,12 +7,12 @@ function App() {
   return (
     <div>
       <HashRouter>
-      <Routes>
-        <Route path="/" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/profile" element={<Profile/>} />
-      </Routes>
-    </HashRouter>
+        <Routes>
+          <Route path="/" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile/>} />
+        </Routes>
+      </HashRouter>
     </div>
   );
 }
